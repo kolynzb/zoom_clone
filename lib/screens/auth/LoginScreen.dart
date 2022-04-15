@@ -22,7 +22,7 @@ class LoginScreen extends StatelessWidget {
             ),
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 40),
-              child: CustomButton(text: 'Login',onPressed: ,() => print("Your are now logged in")),
+              child: CustomButton(text: 'Login',onPressed:() => print("Your are now logged in")),
             ),
           ],
         ),
