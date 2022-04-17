@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zoom/controllers/auth_controller.dart';
 import 'package:zoom/screens/widget/custom_button.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -20,9 +21,11 @@ class LoginScreen extends StatelessWidget {
             Image.asset(
               'assets/images/onboarding.png',
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 40),
-              child: CustomButton(text: 'Login',onPressed:() => print("Your are now logged in")),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 40),
+              child: CustomButton(
+                  text: 'Login',
+                  onPressed: () => AuthController().signInWithGoogle()),
             ),
           ],
         ),

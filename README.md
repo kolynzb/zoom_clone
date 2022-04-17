@@ -22,3 +22,5 @@ Windows
 ````keytool -list -v -keystore C:\Users\user.android\debug.keystore
 -alias androiddebugkey -storepass android -keypass android ```
 ````
+
+git log
