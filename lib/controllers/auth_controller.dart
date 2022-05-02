@@ -5,6 +5,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 class AuthController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
+
+  Stream<User?> get authChanges => _auth.authStateChanges();
+
   signInWithGoogle() async {
     try {
       GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -18,16 +21,15 @@ class AuthController {
 
       User? user = userCredential.user;
       if (user != null) {
+        // Check if the user is new if not save them to the database.
         if (userCredential.additionalUserInfo!.isNewUser) {
           //save new user to firestore database
           _firestore.collection("users").doc(user.uid).set({
             "username": user.displayName,
             'uid': user.uid,
-            'image': user.photoURL
+            'userImage': user.photoURL
           });
-        } else {
-          
-        }
+        } else {}
       }
     } catch (e) {}
   }

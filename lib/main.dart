@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:zoom/controllers/auth_controller.dart';
 import 'package:zoom/screens/auth/LoginScreen.dart';
+import 'package:zoom/screens/home_screen.dart';
 import 'package:zoom/utils/colors.dart';
 
 void main() async {
@@ -21,7 +23,21 @@ class MyApp extends StatelessWidget {
       title: 'Zoom',
       theme:
           ThemeData.dark().copyWith(scaffoldBackgroundColor: backgroundColor),
-      home: const LoginScreen(),
+      home: StreamBuilder(
+        stream: AuthController().authChanges,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (snapshot.hasData) {
+            return const HomeScreen();
+          }
+
+          return LoginScreen();
+        },
+      ),
     );
   }
 }
